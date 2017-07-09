@@ -12,41 +12,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.common.exception;
+package com.common.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
 
 /**
  * @author laxman
  *
  */
-public class TaskException extends Exception {
+@Data
+@Entity
+public class Address implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private String errorMessage;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-	/**
-	 * @param errorMessage
-	 */
-	public TaskException(String errorMessage) {
-		super(errorMessage);
-	}
+	private String houseName;
+	private String houseNumber;
+	private String streetRoad;
+	private String landmark;
 
-	/**
-	 * @return the errorMessage
-	 */
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+	private String area;
 
-	/**
-	 * @param errorMessage
-	 *            the errorMessage to set
-	 */
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-
+	@NotNull
+	@OneToOne
+	private City city;
+	@NotNull
+	private String state;
+	@NotNull
+	private String country;
+	@NotNull
+	private Integer pincode;
 }

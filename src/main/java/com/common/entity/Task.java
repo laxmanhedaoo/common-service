@@ -12,41 +12,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.common.exception;
+package com.common.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
 
 /**
  * @author laxman
  *
  */
-public class TaskException extends Exception {
+@Data
+@Entity
+public class Task implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-	private String errorMessage;
+	@NotNull
+	private String title;
 
-	/**
-	 * @param errorMessage
-	 */
-	public TaskException(String errorMessage) {
-		super(errorMessage);
-	}
+	private String description;
 
-	/**
-	 * @return the errorMessage
-	 */
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+	@NotNull
+	@OneToOne
+	private Mentor createdBy;
 
-	/**
-	 * @param errorMessage
-	 *            the errorMessage to set
-	 */
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-
+	@Temporal(TemporalType.TIMESTAMP)
+	private Data createdOn;
 }
